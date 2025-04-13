@@ -4,7 +4,7 @@ public class MyCustomException extends RuntimeException {
 
 	private static final long serialVersionUID = 122111L;
 
-	public MyCustomException() {
+    public MyCustomException() {
         super();
     }
 
