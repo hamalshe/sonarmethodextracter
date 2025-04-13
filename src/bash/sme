@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+#    sme: Use sme command to extract methods from sonar report xlsx file
+#
+# This script assumes that the desired "java" (1.8)
+# is in the user's PATH.
+#
+
+sourceDir=""
+opt=""
+sheetName=""
+while test $# -ne 0; do
+  case "$1" in
+  -s) opt="$opt $1";;
+  -*)      opt="$opt $1";;
+   *)      if test -z "$sourceDir"; then
+             sourceDir="$1"
+           else
+             break;
+           fi;;
+  esac
+  shift
+done
+
+if test $# = 0 || test -z "$opt"; then
+  echo Usage: `basename "$0"` "-s sourceDir xlsxfile -sheet sheetName"
+  echo Uses java -jar on a predefined executable jar to identify the method names in a sonar xlsx report.
+  exit 1
+fi
+xlsxfile="$1"; shift; shift
+sheetName="$1";
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false;
+linux=false;
+case "`uname`" in
+    CYGWIN*)
+        cygwin=true
+        ;;
+    
+    Linux)
+        linux=true
+        ;;
+esac
+
+if $cygwin ; then
+sourceDir=`cygpath -wa "$sourceDir"`
+xlsxfile=`cygpath -wa "$xlsxfile"`
+fi
+
+# Setup the JVM
+if [ "x$JAVA" = "x" ]; then
+    if [ "x$JAVA_HOME" != "x" ]; then
+  JAVA="$JAVA_HOME/bin/java"
+    else
+  JAVA="java"
+    fi
+fi
+smejar=""
+if $cygwin ; then
+smejar="$(cygpath -w /drives/d/SonarMethodExtracterWorkspace/sonarmethodextracter/target/sonarmethodextracter.jar)"
+else
+smejar="/drives/d/SonarMethodExtracterWorkspace/sonarmethodextracter/target/sonarmethodextracter.jar"
+fi
+#echo opt = "$opt", sourceDir = "$sourceDir", xlsxfile = "$xlsxfile", sheetName = "$sheetName"
+
+"$JAVA" -jar $smejar $opt "$sourceDir" "$xlsxfile" -sheet "$sheetName"
