@@ -2,7 +2,7 @@ package com.myorg.common.exception;
 
 public class MyCustomException extends RuntimeException {
 
-	private static final long serialVersionUID = 122111L;
+    private static final long serialVersionUID = 122111L;
 
     public MyCustomException() {
         super();
