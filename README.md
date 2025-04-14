@@ -8,12 +8,24 @@ This project provides a utility to extract Sonar issues from a Sonar portal and 
 
 *   `jq` command-line JSON processor (available on Linux and Cygwin)
 *   Mobaxterm terminal (recommended for executing bash shell scripts)
+*   Maven (for building the Java jar file)
+*   Git (for checking out the project)
 
 ## Usage
 
+### Checking Out the Project
+
+1.  Open a terminal/command prompt and navigate to the directory where you want to check out the project.
+2.  Run the command `git clone https://github.com/hamalshe/sonarmethodextracter.git` to check out the project.
+
+### Building the Java Jar File
+
+1.  Navigate to the project directory in your terminal/command prompt.
+2.  Run the command `mvn clean install` to build the Java jar file. This will generate the `sonarmethodextracter.jar` file in the `target` directory.
+
 ### Downloading Sonar Issues
 
-1.  Run the `sonar_issues_downloader.sh` script to download the list of Sonar issues and dump it in a CSV file. (Change the `url` value, as per your need)
+1.  Run the `sonar_issues_downloader.sh` script to download the list of Sonar issues and dump it in a CSV file. (Change the `url` value, as per your need)
 2.  The script downloads issues in chunks of 400 records per page and will automatically stop when either:
     *   All available pages have been downloaded
     *   The total number of records downloaded reaches the 10,000 record limit imposed by the Sonar portal
