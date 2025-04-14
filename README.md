@@ -34,12 +34,12 @@ This project provides a utility to extract Sonar issues from a Sonar portal and 
 
 ### Extracting Method Names
 
-1.  Copy the `sme` script to your `/bin` folder:
+1.  Copy the `src/bash/sme` script to your `/bin` folder:
     *   If using Mobaxterm, execute `open /bin` to open the `/bin` folder in a new window, then copy the `sme` script into this folder.
     *   Alternatively, copy the script using the command line: `cp sme /bin`
-2.  Note: The `sme` script is configured to use the Java jar file located at `D:\SonarMethodExtracterWorkspace\sonarmethodextracter\target\sonarmethodextracter.jar`. You may need to update this path in the script to match your own jar file location.
+2.  Note: The `sme` script is configured to use the Java jar file located at `D:\SonarMethodExtracterWorkspace\sonarmethodextracter\target\sonarmethodextracter.jar`. You may need to update this path in the script to match your own jar file location by modifying the  `smejar`  variable value.
 3.  Run the `sme` command with the following arguments:
-    *   `-s` followed by the path to the source directory (absolute or relative)
+    *   `-s` followed by the path to the source directory on which the sonar report was generated in Sonar portal (absolute or relative)
     *   The `.xlsx` file saved in step 4 above (absolute or relative path)
     *   `-sheet` followed by the sheet name
 4.  The script will invoke a Java jar file utility to read the Excel file, scan the code in the source directory, and update the `Method` column with method names.
